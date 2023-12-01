@@ -1,1 +1,10 @@
 version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./../app/pcheliki.monolit:/var/www
+    ports:
+      - "8080:80"
+    container_name: nginx_con
