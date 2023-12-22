@@ -1,2 +1,5 @@
 .idea
 docker/.env
+docker/pgadmin-data
+docker/redis_insight_volume_data
+docker/logs
