@@ -56,6 +56,20 @@ services:
     networks:
       - postgres
 
+  redis:
+    container_name: redis_con
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis:/root/redis
+      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_DATABASES: ${REDIS_DATABASES}
+
 networks:
   postgres:
     driver: bridge
