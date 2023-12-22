@@ -70,14 +70,14 @@ services:
       REDIS_PORT: ${REDIS_PORT}
       REDIS_DATABASES: ${REDIS_DATABASES}
 
+  npm:
+    image: node:latest
+    volumes:
+      - ./../app/pcheliki.monolit:/var/www/html
+    working_dir: /var/www/html
+    container_name: npm_con
+    command: tail -f /dev/null
+
 networks:
   postgres:
     driver: bridge
-
-#  npm:
-#    image: node:18.13.0
-#    working_dir: /var/www/html
-#    entrypoint: [ "npm" ]
-#    container_name: npm_con
-#    volumes:
-#      - ./www:/var/www/html
