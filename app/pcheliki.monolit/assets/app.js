@@ -7,5 +7,10 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import React from "react";
+import ReactDOM from 'react-dom';
+import RegisterComponent from "../templates/Components/RegisterComponent";
 
-console.log(1);
+ReactDOM.render(
+    <RegisterComponent/>, document.getElementById('root')
+);

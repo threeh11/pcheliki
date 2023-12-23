@@ -19,6 +19,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
     "@symfony/webpack-encore": "^4.5.0",
+    "sass-loader": "^13.3.2",
     "webpack-notifier": "^1.15.0"
   }
 }
