@@ -36,26 +36,6 @@ services:
     networks:
       - postgres
 
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4:7.2
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "threeh1@vk.com"
-      PGADMIN_DEFAULT_PASSWORD: "asd890jkl"
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    volumes:
-      - ./pgadmin-data:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-    networks:
-      - postgres
-
   redis:
     container_name: redis_con
     image: redis:latest
