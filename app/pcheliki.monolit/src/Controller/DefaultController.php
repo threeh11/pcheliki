@@ -2,12 +2,8 @@
 
 namespace App\Controller;
 
-use BaseDefaultController;
-use Symfony\Component\{
-    HttpFoundation\Request,
-    HttpFoundation\Response
-};
-use Scenarios\Others\DefaultRequestTransformer;
+use App\modules\Infrastructure\Base\BaseDefaultController;
+use Symfony\Component\{HttpFoundation\Request, HttpFoundation\Response};
 use Symfony\Component\Routing\Attribute\Route;
 
 final class DefaultController extends BaseDefaultController

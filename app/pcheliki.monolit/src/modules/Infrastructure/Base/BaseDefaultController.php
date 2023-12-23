@@ -1,5 +1,7 @@
 <?php
 
+namespace App\modules\Infrastructure\Base;
+
 abstract class BaseDefaultController extends BaseController
 {
     public function __construct()

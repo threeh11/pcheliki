@@ -1,6 +1,6 @@
 <?php
 
-namespace Validator;
+namespace App\modules\Infrastructure\Validator;
 
 interface IValidationResultTry
 {

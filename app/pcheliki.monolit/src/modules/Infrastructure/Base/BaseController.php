@@ -1,5 +1,7 @@
 <?php
 
+namespace App\modules\Infrastructure\Base;
+
 use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -7,10 +9,12 @@ use Twig\Environment;
 
 abstract class BaseController extends AbstractController
 {
-    public function __construct(
-    ) {}
+    public function __construct()
+    {
+    }
 
     // Пока не расписал сам Request, тут будем передавать весь request
+
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface

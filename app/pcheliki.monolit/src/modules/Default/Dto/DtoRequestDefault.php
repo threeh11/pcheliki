@@ -1,5 +1,6 @@
 <?php
 
+namespace App\modules\Default\Dto;
 final class DtoRequestDefault
 {
 

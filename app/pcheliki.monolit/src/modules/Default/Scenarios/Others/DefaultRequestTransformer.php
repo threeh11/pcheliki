@@ -1,5 +1,6 @@
 <?php
-namespace Scenarios\Others;
+
+namespace App\modules\Default\Scenarios\Others;
 
 //use Symfony\Component\HttpFoundation\Request;
 //use Validator\ValidatorService;
