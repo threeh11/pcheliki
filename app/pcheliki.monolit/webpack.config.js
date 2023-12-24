@@ -20,9 +20,9 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // configure Babel
-    .configureBabel(function(babelConfig) {
-        babelConfig.plugins = ['styled-jsx/babel']
-    })
+    // .configureBabel(function(babelConfig) {
+    //     babelConfig.plugins = []
+    // })
 
     .enableSassLoader()
 

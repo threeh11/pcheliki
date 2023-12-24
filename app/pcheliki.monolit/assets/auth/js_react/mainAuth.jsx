@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import RegisterComponent from './components/AuthComponent';
+import AuthComponent from './components/AuthComponent';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {store} from "./redux/store/configureStore";
+import {generatedReducers} from "./redux/store/configureStore";
+import {createStore} from "redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
-    <Provider store={store}>
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <Provider store={
+        createStore(generatedReducers,
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+    }>
         <BrowserRouter>
-            <RegisterComponent/>
+            <AuthComponent/>
         </BrowserRouter>
     </Provider>
 );

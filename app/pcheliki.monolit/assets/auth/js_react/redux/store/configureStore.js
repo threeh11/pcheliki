@@ -1,4 +1,6 @@
-import { createStore } from 'redux';
-import { rootReducer, initialState } from '../redusers/index';
+import {combineReducers} from 'redux';
+import {authReducer} from '../redusers/index';
 
-export const store = createStore(rootReducer, initialState);
+export const generatedReducers = combineReducers({
+    authState: authReducer,
+});
