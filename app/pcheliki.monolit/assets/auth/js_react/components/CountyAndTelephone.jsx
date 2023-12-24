@@ -1,5 +1,5 @@
 import React from 'react';
-import CountryAndTelephoneStyles from '../../../assets/styles/Register__CountryAndTelephone.scss';
+import {Link} from "react-router-dom";
 
 function CountryAndTelephone(){
     return(

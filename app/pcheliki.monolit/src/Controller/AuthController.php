@@ -16,7 +16,7 @@ class AuthController extends BaseAuthController
 {
     public function __construct(
         private readonly AuthRequestTransformer $authRequestTransformer,
-        private readonly AuthSendMessageAction $authSendMessageAction,
+//        private readonly AuthSendMessageAction $authSendMessageAction,
     ) {
         parent::__construct();
     }
@@ -25,11 +25,10 @@ class AuthController extends BaseAuthController
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    #[Route('/reg', name: 'index_register', methods: ['GET'])]
+    #[Route('/a', name: 'index_register', methods: ['GET'])]
     public function index(): Response
     {
-        // Тут потом будет генерация qr кода
-        return $this->sendPage('base.twig.html', []);
+        return $this->sendPage('auth/index.html.twig', []);
     }
 
     /**
@@ -39,7 +38,7 @@ class AuthController extends BaseAuthController
     public function checkNumber(Request $request): Response
     {
         $dto = $this->authRequestTransformer->requestToCheckNumber($request);
-        $this->authSendMessageAction->execute($dto);
+//        $this->authSendMessageAction->execute($dto);
     }
 
 }
