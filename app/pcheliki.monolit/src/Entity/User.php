@@ -5,6 +5,7 @@ namespace src\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -78,20 +79,16 @@ class User
 
     public function setPhoneTry(string $phone): void
     {
-        if($phone == null)
-        {
+        if ($phone == null) {
             throw new \DomainException();
         }
-        if(gettype($phone) != 'string')
-        {
+        if (gettype($phone) != 'string') {
             throw new InvalidTypeException();
         }
-        if($phone == '')
-        {
+        if ($phone == '') {
             throw new \DomainException('Возможно, вы не ввели номер телефона, проверьте ещё раз');
         }
-        if(!preg_match('/^\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}+$/iD', $phone))
-        {
+        if (!preg_match('/^\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}+$/iD', $phone)) {
             throw new \DomainException('Возможно, вы ввели неверный номер телефона. Номер должен начинаться с \'+7\'');
         }
         //Нужно будет разобраться с проверкой на уникальность телефонного номера в базе данных(где проводить и каким способом)
@@ -99,46 +96,39 @@ class User
         $this->phone = $phone;
     }
 
-    public function setPasswordTry(string $password): void
+    public function setPasswordTry(string $password, PasswordHasherInterface $passwordHasher): void
     {
-        if($password == null)
-        {
+        if ($password == null) {
             throw new \DomainException();
         }
-        if(gettype($password) != 'string')
-        {
+        if (gettype($password) != 'string') {
             throw new InvalidTypeException();
         }
-        if($password == '')
-        {
+        if ($password == '') {
             throw new \DomainException('Возможно, вы не ввели пароль, проверьте ещё раз');
         }
-        if(!preg_match('/^[А-яA-z0-9]{8,100}+$/iD', $password))
-        {
+        if (!preg_match('/^[А-яA-z0-9]{8,100}+$/iD', $password)) {
             throw new \DomainException(
                 'Возможно, вы ввели недопустимый пароль. Пароль не должен иметь спецсимволов, к примеру: \'_,./\\-=+\' и т.д. 
                 Пароль должен иметь минимальную длину в 8 символов, максимальную - 100 символов');
         }
 
-        $this->password = $password;
+        $hashedPassword = $passwordHasher->hash($password);
+        $this->password = $hashedPassword;
     }
 
     public function setIpAddressTry(string $ipAddress): void
     {
-        if($ipAddress == null)
-        {
+        if ($ipAddress == null) {
             throw new \DomainException();
         }
-        if(gettype($ipAddress) != 'string')
-        {
+        if (gettype($ipAddress) != 'string') {
             throw new InvalidTypeException();
         }
-        if($ipAddress == '')
-        {
+        if ($ipAddress == '') {
             throw new \DomainException();
         }
-        if(!preg_match('/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)+$/iD', $ipAddress))
-        {
+        if (!preg_match('/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)+$/iD', $ipAddress)) {
             throw new \DomainException();
         }
 
@@ -147,20 +137,16 @@ class User
 
     public function setNameTry(string $name): void
     {
-        if($name == null)
-        {
+        if ($name == null) {
             throw new \DomainException();
         }
-        if(gettype($name) != 'string')
-        {
+        if (gettype($name) != 'string') {
             throw new InvalidTypeException();
         }
-        if($name == '')
-        {
+        if ($name == '') {
             throw new \DomainException('Возможно, вы не ввели имя. Попробуйте ещё раз');
         }
-        if(!preg_match('/^[А-яA-z0-9]{1,50}+$/iD', $name))
-        {
+        if (!preg_match('/^[А-яA-z0-9]{1,50}+$/iD', $name)) {
             throw new \DomainException('Возможно, вы ввели недопустимое имя. Максимальная длина имени - 50 символов');
         }
 
@@ -169,20 +155,16 @@ class User
 
     public function setSurnameTry(string $surname): void
     {
-        if($surname == null)
-        {
+        if ($surname == null) {
             throw new \DomainException();
         }
-        if(gettype($surname) != 'string')
-        {
+        if (gettype($surname) != 'string') {
             throw new InvalidTypeException();
         }
-        if($surname == '')
-        {
+        if ($surname == '') {
             throw new \DomainException('Возможно, вы не ввели фамилию. Попробуйте ещё раз');
         }
-        if(!preg_match('/^[А-яA-z0-9]{1,50}+$/iD', $surname))
-        {
+        if (!preg_match('/^[А-яA-z0-9]{1,50}+$/iD', $surname)) {
             throw new \DomainException('Возможно, вы ввели недопустимую фамилию. Максимальная длина фамилии - 50 символов');
         }
 
@@ -191,12 +173,10 @@ class User
 
     public function setAboutUserTry(string $aboutUser): void
     {
-        if(gettype($aboutUser) != 'string')
-        {
+        if (gettype($aboutUser) != 'string') {
             throw new InvalidTypeException();
         }
-        if(!preg_match('/^[А-яA-z0-9]{0,100}+$/iD', $aboutUser))
-        {
+        if (!preg_match('/^[А-яA-z0-9]{0,100}+$/iD', $aboutUser)) {
             throw new \DomainException('Максимальная длина информации о себе - 100 символов');
         }
 
@@ -205,20 +185,16 @@ class User
 
     public function setNicknameTry(string $nickname): void
     {
-        if($nickname == null)
-        {
+        if ($nickname == null) {
             throw new \DomainException();
         }
-        if(gettype($nickname) != 'string')
-        {
+        if (gettype($nickname) != 'string') {
             throw new InvalidTypeException();
         }
-        if($nickname == '')
-        {
+        if ($nickname == '') {
             throw new \DomainException('Возможно, вы не ввели свой никнейм. Попробуйте ещё раз');
         }
-        if(!preg_match('/^[А-яA-z0-9]{5,30}+$/iD', $nickname))
-        {
+        if (!preg_match('/^[А-яA-z0-9]{5,30}+$/iD', $nickname)) {
             throw new \DomainException(
                 'Возможно, вы ввели недопустимый никнейм. Минимальная длина никнейма 5 символов, максимальная длина никнейма - 30 символов. 
                 Никнейм не может содержать спецсимволы, например: \'_,./\\\' и т.д.');
@@ -229,20 +205,16 @@ class User
 
     public function setLastOnlineTry(string $lastOnline): void
     {
-        if($lastOnline == null)
-        {
+        if ($lastOnline == null) {
             throw new \DomainException();
         }
-        if(gettype($lastOnline) != 'string')
-        {
+        if (gettype($lastOnline) != 'string') {
             throw new InvalidTypeException();
         }
-        if($lastOnline == '')
-        {
+        if ($lastOnline == '') {
             throw new \DomainException();
         }
-        if(!preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]+$/iD', $lastOnline))
-        {
+        if (!preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]+$/iD', $lastOnline)) {
             throw new \DomainException();
         }
 
@@ -251,16 +223,13 @@ class User
 
     public function setSmsCodeTry(string $smsCode): void
     {
-        if(gettype($smsCode) != 'string')
-        {
+        if (gettype($smsCode) != 'string') {
             throw new InvalidTypeException();
         }
-        if($smsCode == '')
-        {
+        if ($smsCode == '') {
             throw new \DomainException();
         }
-        if(!preg_match('/^[0-9]{6}+$/iD', $smsCode))
-        {
+        if (!preg_match('/^[0-9]{6}+$/iD', $smsCode)) {
             throw new \DomainException();
         }
 
@@ -269,16 +238,13 @@ class User
 
     public function setDoubleAuthCodeTry(string $doubleAuthCode): void
     {
-        if(gettype($doubleAuthCode) != 'string')
-        {
+        if (gettype($doubleAuthCode) != 'string') {
             throw new InvalidTypeException();
         }
-        if($doubleAuthCode == '')
-        {
+        if ($doubleAuthCode == '') {
             throw new \DomainException();
         }
-        if(!preg_match('/^[0-9]{6}+$/iD', $doubleAuthCode))
-        {
+        if (!preg_match('/^[0-9]{6}+$/iD', $doubleAuthCode)) {
             throw new \DomainException();
         }
 
@@ -287,20 +253,16 @@ class User
 
     public function setRememberMeTry(bool $rememberMe): void
     {
-        if($rememberMe == null)
-        {
+        if ($rememberMe == null) {
             throw new \DomainException();
         }
-        if(gettype($rememberMe) != 'boolean')
-        {
+        if (gettype($rememberMe) != 'boolean') {
             throw new InvalidTypeException();
         }
-        if($rememberMe == '')
-        {
+        if ($rememberMe == '') {
             throw new \DomainException();
         }
-        if($rememberMe != true && $rememberMe != false)
-        {
+        if ($rememberMe != true && $rememberMe != false) {
             throw new \DomainException();
         }
 
