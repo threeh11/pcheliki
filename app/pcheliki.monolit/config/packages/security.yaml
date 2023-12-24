@@ -3,7 +3,7 @@ security:
     password_hashers:
         App\Entity\User:
             algorithm: 'bcrypt'
-            cost: 15
+            cost: 10
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }

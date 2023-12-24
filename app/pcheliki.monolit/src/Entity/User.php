@@ -1,11 +1,10 @@
 <?php
 
-namespace src\Entity;
+namespace Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -64,17 +63,22 @@ class User
         bool $rememberMe,
     )
     {
-        $this->phone = $phone;
-        $this->password = $password;
-        $this->ipAddress = $ipAddress;
-        $this->aboutUser = $aboutUser;
-        $this->nickname = $nickname;
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->lastOnline = $lastOnline;
-        $this->smsCode = $smsCode;
-        $this->doubleAuthCode = $doubleAuthCode;
-        $this->rememberMe = $rememberMe;
+        $this->setPhoneTry($phone);
+        $this->setPasswordTry($password);
+        $this->setIpAddressTry($ipAddress);
+        $this->setAboutUserTry($aboutUser);
+        $this->setNicknameTry($nickname);
+        $this->setNameTry($name);
+        $this->setSurnameTry($surname);
+        $this->setLastOnlineTry($lastOnline);
+        $this->setSmsCodeTry($smsCode);
+        $this->setDoubleAuthCodeTry($doubleAuthCode);
+        $this->setRememberMeTry($rememberMe);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function setPhoneTry(string $phone): void
@@ -96,7 +100,12 @@ class User
         $this->phone = $phone;
     }
 
-    public function setPasswordTry(string $password, PasswordHasherInterface $passwordHasher): void
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPasswordTry(string $password): void
     {
         if ($password == null) {
             throw new \DomainException();
@@ -113,8 +122,12 @@ class User
                 Пароль должен иметь минимальную длину в 8 символов, максимальную - 100 символов');
         }
 
-        $hashedPassword = $passwordHasher->hash($password);
-        $this->password = $hashedPassword;
+        $this->password = $password;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 
     public function setIpAddressTry(string $ipAddress): void
@@ -135,6 +148,12 @@ class User
         $this->ipAddress = $ipAddress;
     }
 
+    public function getIpAddress(): string
+    {
+        return $this->ipAddress;
+    }
+
+
     public function setNameTry(string $name): void
     {
         if ($name == null) {
@@ -151,6 +170,11 @@ class User
         }
 
         $this->name = $name;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function setSurnameTry(string $surname): void
@@ -171,6 +195,11 @@ class User
         $this->surname = $surname;
     }
 
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
     public function setAboutUserTry(string $aboutUser): void
     {
         if (gettype($aboutUser) != 'string') {
@@ -181,6 +210,11 @@ class User
         }
 
         $this->aboutUser = $aboutUser;
+    }
+
+    public function getAboutUser(): ?string
+    {
+        return $this->aboutUser;
     }
 
     public function setNicknameTry(string $nickname): void
@@ -203,6 +237,11 @@ class User
         $this->nickname = $nickname;
     }
 
+    public function getNickname(): string
+    {
+        return $this->nickname;
+    }
+
     public function setLastOnlineTry(string $lastOnline): void
     {
         if ($lastOnline == null) {
@@ -221,6 +260,11 @@ class User
         $this->lastOnline = $lastOnline;
     }
 
+    public function getLastOnline(): string
+    {
+        return $this->lastOnline;
+    }
+
     public function setSmsCodeTry(string $smsCode): void
     {
         if (gettype($smsCode) != 'string') {
@@ -236,6 +280,11 @@ class User
         $this->smsCode = $smsCode;
     }
 
+    public function getSmsCode(): ?string
+    {
+        return $this->smsCode;
+    }
+
     public function setDoubleAuthCodeTry(string $doubleAuthCode): void
     {
         if (gettype($doubleAuthCode) != 'string') {
@@ -249,6 +298,11 @@ class User
         }
 
         $this->doubleAuthCode = $doubleAuthCode;
+    }
+
+    public function getDoubleAuthCode(): ?string
+    {
+        return $this->doubleAuthCode;
     }
 
     public function setRememberMeTry(bool $rememberMe): void
@@ -268,4 +322,10 @@ class User
 
         $this->rememberMe = $rememberMe;
     }
+
+    public function isRememberMe(): bool
+    {
+        return $this->rememberMe;
+    }
+
 }

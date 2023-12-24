@@ -2,10 +2,10 @@
 
 namespace src\Repository;
 
-use Doctrine\ORM\EntityManagerInterface;
-use src\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Entity\User;
 
 /**
  * @extends ServiceEntityRepository<User>
