@@ -5,55 +5,122 @@
   display: flex;
   justify-content: center;
 }
-.form__onTelephone{
 
-}
 .telephone__description{
   font-family: 'Raleway', sans-serif;
 }
+
 .logotype{
   text-align: center;
 }
+
 .logotype__img{
   width: 200px;
   height: 200px;
   border-radius: 200px;
 }
+
 .app__title__text{
   font-weight: 600;
   font-size: 24px;
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
+
 .form__onTelephone{
   display: flex;
   flex-direction: column;
 }
+
 .form__remember{
   display: flex;
 }
+
 .form__remember__checkbox{
-  width: 100%;
+  margin-top: 2.5vh;
+  margin-right: 2vw;
+  margin-left: 2vw;
 }
+
+#changeButton{
+  width: 100%;
+  margin-top: 5%;
+  border: none;
+  background-color: #FFFFFF;
+  font-family: 'Raleway', sans-serif;
+}
+
+#changeButton:hover{
+  border: 1px solid lightgray;
+  box-shadow: 10px 5px 5px #999999;
+}
+
+.form__remember__checkbox:hover{
+  cursor: pointer;
+}
+
 select{
   border: 1px solid lightgrey;
   border-radius: 5px;
   padding: 13px;
   font-family: 'Raleway', sans-serif;
 }
+
+select:hover{
+  cursor: pointer;
+}
+
 .form__telephone{
   font-family: 'Raleway', sans-serif;
 }
+
 input{
   border: 1px solid lightgrey;
   border-radius: 5px;
   margin: 4% 0 4% 0;
   padding: 13px;
 }
+
 .form__CountryAndTelephone__button{
   font-family: 'Raleway', sans-serif;
   height: 38px;
   border: none;
   background-color: yellow;
   border-radius: 5px;
+}
+
+.form__CountryAndTelephone__button:hover{
+  cursor: pointer;
+  border: 1px solid lightgray;
+  box-shadow: 10px 5px 5px #999999;
+}
+
+.QR__description{
+  font-family: 'Raleway', sans-serif;
+}
+
+.favorite{
+  border-radius: 5px;
+  border: none;
+  height: 38px;
+}
+
+.favorite:hover{
+  cursor: pointer;
+}
+
+.app__title__container{
+  display: flex;
+  flex-direction: column;
+}
+
+.QR__description--listItem{
+  background-color: yellow;
+  padding: 5px 10px 5px 10px;
+  border-radius: 200px;
+}
+
+.app__title__container--list{
+  margin: 0 auto;
+  justify-content: center;
 }

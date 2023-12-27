@@ -47,22 +47,35 @@ class AuthComponent extends React.Component {
                     this.state.methodAuth === AUTH_WITH_QR_CODE
                         ? <>
                             {/*Тут будет Qr, пока думаю как его генерить*/}
-                            <h1>Log in to Telegram by QR Code</h1>
-                            <ol>
-                                <span>
-                                    <li>Open Telegram on your phone</li>
-                                </span>
-                                <span>
-                                    <li>Go to Settings > Devices > Link Desktop Device</li>
-                                </span>
-                                <span>
-                                    <li>Point your phone at this screen to confirm login</li>
-                                </span>
-                            </ol>
-                            <button className="favorite styled" type="button"
-                                onClick={this.handleChangeMethodAuth}>
-                                Log in by phone Number
-                            </button>
+                            <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
+                            <div className={'app__title__container'}>
+                                <div className={'app__title__container--list'}>
+                                    <span>
+                                    <p className={'QR__description'}>
+                                        <strong className={'QR__description--listItem'}>1</strong>
+                                        Open Pchelogram on your phone
+                                    </p>
+                                    </span>
+                                        <span>
+                                        <p className={'QR__description'}>
+                                            <strong className={'QR__description--listItem'}>2</strong>
+                                             Go to Settings > Devices > Link Desktop Device
+                                        </p>
+                                    </span>
+                                        <span>
+                                        <p className={'QR__description'}>
+                                            <strong className={'QR__description--listItem'}>3</strong>
+                                             Point your phone at this screen to confirm login
+                                        </p>
+                                    </span>
+                                    <button id={'changeButton'} className="favorite styled" type="button"
+                                            onClick={this.handleChangeMethodAuth}>
+                                        <p className={'QR__button'}>
+                                            Log in by phone Number
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
                         </>
                         :   <>
                                 <div className={'mainContainer'}>
@@ -90,19 +103,23 @@ class AuthComponent extends React.Component {
                                             </select>
                                             <input className={'form__telephone'} id={'telephone'} type={"phone"}></input>
                                             <div className={'form__remember'}>
-                                                <input type={"checkbox"} id={"remember_me"} name={"remember_me"} className={'form__remember__checkbox'}/>
-                                                <p className={'telephone__description'}>remember me</p>
+                                                <div>
+                                                    <input type={"checkbox"} id={"remember_me"} name={"remember_me"} className={'form__remember__checkbox'}/>
+                                                </div>
+                                                <div>
+                                                    <p className={'telephone__description'}>remember me</p>
+                                                </div>
                                             </div>
                                             <button type={"submit"} className={'form__CountryAndTelephone__button'}>
                                                 Войти
                                             </button>
                                         </form>
+                                        <button id={'changeButton'} className="favorite styled" type="button"
+                                                onClick={this.handleChangeMethodAuth}>
+                                            Вход по QR коду
+                                        </button>
                                     </div>
                                 </div>
-                                <button className="favorite styled" type="button"
-                                        onClick={this.handleChangeMethodAuth}>
-                                    Вход по Qr коду
-                                </button>
                             </>
                 }
             </>
