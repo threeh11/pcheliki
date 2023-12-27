@@ -27,9 +27,6 @@ class User
     #[ORM\Column(name: 'name', type: 'string', length: 50, nullable: false)]
     private string $name;
 
-    #[ORM\Column(name: 'surname', type: 'string', length: 50, nullable: false)]
-    private string $surname;
-
     #[ORM\Column(name: 'about_user', type: 'string', length: 100, nullable: true)]
     private ?string $aboutUser = null;
 
@@ -53,26 +50,13 @@ class User
         string $phone,
         string $password,
         string $ipAddress,
-        ?string $aboutUser,
-        string $nickname,
         string $name,
-        string $surname,
-        string $lastOnline,
-        ?string $smsCode,
-        ?string $doubleAuthCode,
         bool $rememberMe,
-    )
-    {
+    ){
         $this->setPhoneTry($phone);
         $this->setPasswordTry($password);
         $this->setIpAddressTry($ipAddress);
-        $this->setAboutUserTry($aboutUser);
-        $this->setNicknameTry($nickname);
         $this->setNameTry($name);
-        $this->setSurnameTry($surname);
-        $this->setLastOnlineTry($lastOnline);
-        $this->setSmsCodeTry($smsCode);
-        $this->setDoubleAuthCodeTry($doubleAuthCode);
         $this->setRememberMeTry($rememberMe);
     }
 
@@ -81,13 +65,10 @@ class User
         return $this->id;
     }
 
-    public function setPhoneTry(string $phone): void
+    private function setPhoneTry(string $phone): void
     {
         if ($phone == null) {
             throw new \DomainException('setPhoneTry');
-        }
-        if (gettype($phone) != 'string') {
-            throw new InvalidTypeException('setPhoneTry');
         }
         if ($phone == '') {
             throw new \DomainException('Возможно, вы не ввели номер телефона, проверьте ещё раз');
@@ -105,13 +86,10 @@ class User
         return $this->phone;
     }
 
-    public function setPasswordTry(string $password): void
+    private function setPasswordTry(string $password): void
     {
         if ($password == null) {
             throw new \DomainException('setPasswordTry');
-        }
-        if (gettype($password) != 'string') {
-            throw new InvalidTypeException('setPasswordTry');
         }
         if ($password == '') {
             throw new \DomainException('Возможно, вы не ввели пароль, проверьте ещё раз');
@@ -130,13 +108,10 @@ class User
         return $this->password;
     }
 
-    public function setIpAddressTry(string $ipAddress): void
+    private function setIpAddressTry(string $ipAddress): void
     {
         if ($ipAddress == null) {
             throw new \DomainException('setIpAddressTry');
-        }
-        if (gettype($ipAddress) != 'string') {
-            throw new InvalidTypeException('setIpAddressTry');
         }
         if ($ipAddress == '') {
             throw new \DomainException('setIpAddressTry');
@@ -153,14 +128,10 @@ class User
         return $this->ipAddress;
     }
 
-
-    public function setNameTry(string $name): void
+    private function setNameTry(string $name): void
     {
         if ($name == null) {
             throw new \DomainException('setNameTry');
-        }
-        if (gettype($name) != 'string') {
-            throw new InvalidTypeException('setNameTry');
         }
         if ($name == '') {
             throw new \DomainException('Возможно, вы не ввели имя. Попробуйте ещё раз');
@@ -177,34 +148,8 @@ class User
         return $this->name;
     }
 
-    public function setSurnameTry(string $surname): void
-    {
-        if ($surname == null) {
-            throw new \DomainException('setSurnameTry');
-        }
-        if (gettype($surname) != 'string') {
-            throw new InvalidTypeException('setSurnameTry');
-        }
-        if ($surname == '') {
-            throw new \DomainException('Возможно, вы не ввели фамилию. Попробуйте ещё раз');
-        }
-        if (!preg_match('/^[А-яA-z0-9]{1,50}+$/iD', $surname)) {
-            throw new \DomainException('Возможно, вы ввели недопустимую фамилию. Максимальная длина фамилии - 50 символов');
-        }
-
-        $this->surname = $surname;
-    }
-
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
     public function setAboutUserTry(?string $aboutUser): void
     {
-        if (gettype($aboutUser) != 'string') {
-            $this->aboutUser = null;
-        }
         if (!preg_match('/^[А-яA-z0-9]{0,100}+$/iD', $aboutUser)) {
             throw new \DomainException('Максимальная длина информации о себе - 100 символов');
         }
@@ -221,9 +166,6 @@ class User
     {
         if ($nickname == null) {
             throw new \DomainException('setNicknameTry');
-        }
-        if (gettype($nickname) != 'string') {
-            throw new InvalidTypeException('setNicknameTry');
         }
         if ($nickname == '') {
             throw new \DomainException('Возможно, вы не ввели свой никнейм. Попробуйте ещё раз');
@@ -247,9 +189,6 @@ class User
         if ($lastOnline == null) {
             throw new \DomainException('setLastOnlineTry');
         }
-        if (gettype($lastOnline) != 'string') {
-            throw new InvalidTypeException('setLastOnlineTry');
-        }
         if ($lastOnline == '') {
             throw new \DomainException('setLastOnlineTry');
         }
@@ -267,7 +206,7 @@ class User
 
     public function setSmsCodeTry(string $smsCode): void
     {
-        if (gettype($smsCode) != 'string') {
+        if ($smsCode == null) {
             throw new InvalidTypeException('setSmsCodeTry');
         }
         if ($smsCode == '') {
@@ -287,7 +226,7 @@ class User
 
     public function setDoubleAuthCodeTry(string $doubleAuthCode): void
     {
-        if (gettype($doubleAuthCode) != 'string') {
+        if ($doubleAuthCode == null) {
             throw new InvalidTypeException('setDoubleAuthCodeTry');
         }
         if ($doubleAuthCode == '') {
@@ -305,13 +244,10 @@ class User
         return $this->doubleAuthCode;
     }
 
-    public function setRememberMeTry(bool $rememberMe): void
+    private function setRememberMeTry(bool $rememberMe): void
     {
         if ($rememberMe == null) {
             throw new \DomainException('setRememberMeTry');
-        }
-        if (gettype($rememberMe) != 'boolean') {
-            throw new InvalidTypeException('setRememberMeTry');
         }
         if ($rememberMe == '') {
             throw new \DomainException('setRememberMeTry');
@@ -323,7 +259,7 @@ class User
         $this->rememberMe = $rememberMe;
     }
 
-    public function isRememberMe(): bool
+    public function getIsRememberMe(): bool
     {
         return $this->rememberMe;
     }
