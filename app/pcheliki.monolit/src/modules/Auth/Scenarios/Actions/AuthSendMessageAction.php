@@ -12,7 +12,7 @@ use Symfony\Component\Notifier\{
 final readonly class AuthSendMessageAction
 {
     public function __construct(
-        private TexterInterface $texter
+//        private TexterInterface $texter
     ) {}
 
     /**
@@ -20,12 +20,12 @@ final readonly class AuthSendMessageAction
      */
     public function execute(DtoRequestAuthCheckNumber $dto): void
     {
-        $generatedCode = rand(1000000, 9999999);
-        $sms = new SmsMessage(
-            $dto->phone,
-            'Ваш код: ' . $generatedCode,
-        );
-        $sentMessage = $this->texter->send($sms);
+//        $generatedCode = rand(1000000, 9999999);
+//        $sms = new SmsMessage(
+//            $dto->phone,
+//            'Ваш код: ' . $generatedCode,
+//        );
+//        $sentMessage = $this->texter->send($sms);
 
 //        $sentMessage->getMessageId(); - Вот это в базе будем хранить, создадим табличку для отправленных сообщений
 //        $sentMessage->getOriginalMessage();

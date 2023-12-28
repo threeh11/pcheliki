@@ -35,17 +35,17 @@ abstract class BaseController extends AbstractController
             throw new \LogicException('Не правильный путь к файлу отображения: ' . $pathToTemplate);
         }
 
-        $content = $this->render($pathToTemplate, $parameters);
-        return new Response(
-            $content,
-            200,
-            [
-                'Content-Type' => 'text/html',
-                'Cache-Control' => 'public, max-age=3600',
-                'Accept-Language' => 'en-US,en;q=0.9,ru;q=0.8',
-                // будет дополнятся, пока написал базовые, потом сюда еще куки прикрутим
-            ]
-        );
+        return $this->render($pathToTemplate, $parameters);
+//        return new Response(
+//            $content,
+//            200,
+//            [
+//                'Content-Type' => 'text/html',
+//                'Cache-Control' => 'public, max-age=3600',
+//                'Accept-Language' => 'en-US,en;q=0.9,ru;q=0.8',
+//                // будет дополнятся, пока написал базовые, потом сюда еще куки прикрутим
+//            ]
+//        );
     }
 
     // TODO Написать Json Response для отправки ответа в виде json
