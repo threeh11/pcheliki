@@ -58,15 +58,17 @@ services:
     container_name: npm_con
     command: tail -f /dev/null
 
-# .NET + Grpc
+  # .NET + Grpc
   dotnet:
-    build:
-      context: ./dotNET
-      dockerfile: Dockerfile
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    volumes:
+      - ./../app/pcheliki.chart:/app
     container_name: dotnet_con
     ports:
-      - '5000:5000'
-      
+      - '5051:5000'
+    tty: true
+    working_dir: /app
+
 networks:
   postgres:
     driver: bridge
