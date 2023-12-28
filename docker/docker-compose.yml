@@ -58,6 +58,15 @@ services:
     container_name: npm_con
     command: tail -f /dev/null
 
+# .NET + Grpc
+  dotnet:
+    build:
+      context: ./dotNET
+      dockerfile: Dockerfile
+    container_name: dotnet_con
+    ports:
+      - '5000:5000'
+      
 networks:
   postgres:
     driver: bridge
