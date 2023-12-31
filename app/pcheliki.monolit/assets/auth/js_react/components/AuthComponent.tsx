@@ -21,7 +21,7 @@ interface RootDispatch {
 type Props = ConnectedProps<typeof connector>;
 
 class AuthComponent extends Component<Props, RootState> {
-    state: RootState = {
+    state: { methodAuth: number } = {
         methodAuth: AUTH_WITH_QR_CODE,
     };
 
@@ -33,12 +33,14 @@ class AuthComponent extends Component<Props, RootState> {
     handleChangeMethodAuth = () => {
         if (this.state.methodAuth === AUTH_WITH_QR_CODE) {
             this.setState({
-                methodAuth: AUTH_WITH_PHONE,
+                country: "", isAuthQrCode: false, phone: "", qrCode: "", remember_me: false,
+                methodAuth: AUTH_WITH_PHONE
             });
             this.props.setMethodAuthAction(AUTH_WITH_PHONE);
         } else {
             this.setState({
-                methodAuth: AUTH_WITH_QR_CODE,
+                country: "", isAuthQrCode: false, phone: "", qrCode: "", remember_me: false,
+                methodAuth: AUTH_WITH_QR_CODE
             });
             this.props.setMethodAuthAction(AUTH_WITH_QR_CODE);
         }
@@ -49,8 +51,6 @@ class AuthComponent extends Component<Props, RootState> {
     };
 
     render() {
-        console.log(this.props);
-        console.log(this.state);
         return (
             <>
                 {this.state.methodAuth === AUTH_WITH_QR_CODE ? (
@@ -68,7 +68,7 @@ class AuthComponent extends Component<Props, RootState> {
                                 <span>
                   <p className={'QR__description'}>
                     <strong className={'QR__description--listItem'}>2</strong>
-                    Go to Settings > Devices > Link Desktop Device
+                    Go to Settings {'>'} Devices {'>'} Link Desktop Device
                   </p>
                 </span>
                                 <span>

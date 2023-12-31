@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from 'redux';
-import { authReducer, AuthState } from '../redusers/index';
+import { authReducer, AuthState } from '../redusers';
 
 interface RootState {
     authState: AuthState;

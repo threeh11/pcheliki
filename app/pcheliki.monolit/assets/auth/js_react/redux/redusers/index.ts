@@ -7,7 +7,7 @@ import {
 } from '../actions/typesActions';
 import { AUTH_WITH_QR_CODE } from "../../const/typesAuth";
 
-interface AuthState {
+export interface AuthState {
     isAuthQrCode: string;
     qrCode: string;
     phone: string;
@@ -23,7 +23,19 @@ const initialState: { country: string; qrCode: string; isAuthQrCode: number; pho
     remember_me: '',
 }
 
-export function authReducer(state: AuthState = initialState, action: any): AuthState {
+export function authReducer(state: {
+    country: string;
+    qrCode: string;
+    isAuthQrCode: number;
+    phone: string;
+    remember_me: string
+} = initialState, action: any): {
+    country: string;
+    qrCode: any;
+    isAuthQrCode: number;
+    phone: string;
+    remember_me: string
+} {
     switch (action.type) {
         case SET_METHOD_AUTH:
             return {

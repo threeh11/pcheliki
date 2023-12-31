@@ -1,8 +1,10 @@
-import {fetch} from 'whatwg-fetch';
+import { fetch } from 'whatwg-fetch';
 import queryString from 'query-string';
-import {AppError} from '../core/AppError';
+import { AppError } from '../core/AppError';
 
 class RequestService {
+    defaultHeaders: Record<string, string>;
+
     constructor() {
         this.defaultHeaders = {
             Accept: 'application/json',
@@ -10,7 +12,7 @@ class RequestService {
         };
     }
 
-    async get(url, data = null) {
+    async get(url: string, data: Record<string, any> | null = null): Promise<any> {
         const options = {
             method: 'GET',
             headers: {
@@ -24,34 +26,34 @@ class RequestService {
         await this.requestError(response);
     }
 
-    async put(url, data, asJson = false) {
+    async put(url: string, data: Record<string, any>, asJson: boolean = false): Promise<any> {
         const options = {
             method: 'PUT',
             headers: {
                 ...this.defaultHeaders,
                 'Content-Type': asJson ? 'application/json' : 'application/x-www-form-urlencoded',
             },
-            body: asJson ? JSON.stringify(data) : queryString.stringify(data, {arrayFormat: 'bracket'}),
+            body: asJson ? JSON.stringify(data) : queryString.stringify(data, { arrayFormat: 'bracket' }),
         };
-        const response = await fetch(url, options,);
+        const response = await fetch(url, options);
         if (response.ok) {
             return response.json();
         }
         await this.requestError(response);
     }
 
-    async post(url, data, asJson = false) {
-        const headers = {'Content-Type': asJson ? 'application/json' : 'application/x-www-form-urlencoded'};
+    async post(url: string, data: Record<string, any>, asJson: boolean = false): Promise<any> {
+        const headers = { 'Content-Type': asJson ? 'application/json' : 'application/x-www-form-urlencoded' };
 
         const preparedData = asJson
             ? JSON.stringify(data)
-            : queryString.stringify(data, {arrayFormat: 'bracket'});
+            : queryString.stringify(data, { arrayFormat: 'bracket' });
 
         return this.rawPost(url, preparedData, headers);
     }
 
     //Замечание: fetch из коробки умеет посылать инстансы FormData класса - поэтому суй без заголовков
-    async rawPost(url, data, overwriteHeaders = {}) {
+    async rawPost(url: string, data: any, overwriteHeaders: Record<string, string> = {}): Promise<any> {
         const headers = {
             ...this.defaultHeaders,
             ...overwriteHeaders
@@ -63,14 +65,14 @@ class RequestService {
             body: data
         };
 
-        const response = await fetch(url, options,);
+        const response = await fetch(url, options);
         if (response.ok) {
             return response.json();
         }
         await this.requestError(response);
     }
 
-    async delete(url, data = null) {
+    async delete(url: string, data: Record<string, any> | null = null): Promise<any> {
         const options = {
             method: 'DELETE',
             headers: {
@@ -84,7 +86,7 @@ class RequestService {
         await this.requestError(response);
     }
 
-    async uploadOneFile(url, formDataObj) {
+    async uploadOneFile(url: string, formDataObj: FormData): Promise<any> {
         const response = await fetch(url, {
             method: "POST",
             body: formDataObj
@@ -95,7 +97,7 @@ class RequestService {
         await this.requestError(response);
     }
 
-    async requestError(response) {
+    async requestError(response: Response): Promise<void> {
         const res = await response.json();
         switch (response.status) {
             case 301:
@@ -121,7 +123,7 @@ class RequestService {
         }
     }
 
-    prepareMessage(res) {
+    prepareMessage(res: any): string {
         const message = res.message ? `<p>${res.message}</p>` : '';
         const errors = res.errors ? Object.keys(res.errors).map((errorKey) => `<p>${res.errors[errorKey]}</p>`).join(' ') : '';
         return message + errors;
