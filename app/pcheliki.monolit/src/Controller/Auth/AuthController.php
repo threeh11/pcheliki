@@ -2,9 +2,9 @@
 
 namespace App\Controller\Auth;
 
-use App\modules\Infrastructure\Base\BaseAuthController;
+use App\Modules\Infrastructure\Base\BaseAuthController;
 use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
-use Symfony\Component\HttpFoundation\{Response};
+use Symfony\Component\HttpFoundation\{File\Exception\AccessDeniedException, Response};
 use Symfony\Component\Routing\Attribute\Route;
 
 class AuthController extends BaseAuthController
