@@ -6,9 +6,8 @@ interface DataForCountrySelect {
     phoneCodeCountry: string,
 }
 
-export const getCountryAndCodesForSelect = (): DataForCountrySelect[] => {
+export const getCountryAndCodesForSelect = async (): Promise<DataForCountrySelect[]> => {
     const requestService: RequestService = new RequestService();
-    const {rows} = requestService.get('auth/get-countries');
-    console.log(rows);
-    return rows;
+    const {countries_codes, count} = await requestService.get('auth/get-countries');
+    return countries_codes;
 }

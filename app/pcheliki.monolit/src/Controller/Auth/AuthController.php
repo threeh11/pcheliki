@@ -2,15 +2,17 @@
 
 namespace App\Controller\Auth;
 
+use App\Modules\Auth\Scenarios\Readers\AuthReaders;
 use App\Modules\Infrastructure\Base\BaseAuthController;
 use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
-use Symfony\Component\HttpFoundation\{File\Exception\AccessDeniedException, Response};
+use Symfony\Component\HttpFoundation\{JsonResponse, Response};
 use Symfony\Component\Routing\Attribute\Route;
 
 class AuthController extends BaseAuthController
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly AuthReaders $authReaders,
+    ) {
         parent::__construct();
     }
 
@@ -27,7 +29,9 @@ class AuthController extends BaseAuthController
     #[Route('auth/get-countries', name: 'get_countries_for_select', methods: ['GET'])]
     public function getCountryForSelect(): JsonResponse
     {
-        $dataJson =
+        $dataCountries = $this->authReaders->getCountries();
+        $countData = count($dataCountries);
+        return new JsonResponse(['countries_codes' => $dataCountries, 'count' => $countData]);
     }
 
 }
