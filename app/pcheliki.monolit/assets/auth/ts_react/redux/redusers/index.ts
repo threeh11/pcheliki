@@ -5,9 +5,17 @@ import {
     SET_METHOD_AUTH,
     SET_REMEMBER_ME
 } from '../actions/typesActions';
-import {AUTH_WITH_QR_CODE} from "../../const/typesAuth";
+import { AUTH_WITH_QR_CODE } from '../../const/typesAuth';
 
-const initialState = {
+export interface AuthState {
+    isAuthQrCode: number;
+    qrCode: string | null;
+    phone: string | null;
+    country: string | null;
+    remember_me: string | null;
+}
+
+const initialState: AuthState = {
     isAuthQrCode: AUTH_WITH_QR_CODE,
     qrCode: '',
     phone: '',
@@ -15,7 +23,7 @@ const initialState = {
     remember_me: '',
 }
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state: AuthState = initialState, action: any): AuthState {
     switch (action.type) {
         case SET_METHOD_AUTH:
             return {
