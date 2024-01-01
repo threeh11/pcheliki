@@ -4,7 +4,7 @@ namespace App\Controller\Auth;
 
 use App\modules\Infrastructure\Base\BaseAuthController;
 use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
-use Symfony\Component\HttpFoundation\{Response};
+use Symfony\Component\HttpFoundation\{JsonResponse, Response};
 use Symfony\Component\Routing\Attribute\Route;
 
 class AuthController extends BaseAuthController
@@ -22,6 +22,12 @@ class AuthController extends BaseAuthController
     public function index(): Response
     {
         return $this->sendPage('auth/index.html.twig', []);
+    }
+
+    #[Route('auth/get-countries', name: 'get_countries_for_select', methods: ['GET'])]
+    public function getCountryForSelect(): JsonResponse
+    {
+        $dataJson =
     }
 
 }

@@ -18,15 +18,18 @@
     "@reduxjs/toolkit": "^2.0.1",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
+    "@types/whatwg-fetch": "^0.0.33",
     "babel-preset-preact": "^2.0.0",
     "html-webpack-plugin": "^5.6.0",
     "jquery": "^3.6.0",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "redux": "^5.0.1",
-    "styled-jsx": "^5.1.2"
+    "styled-jsx": "^5.1.2",
+    "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",

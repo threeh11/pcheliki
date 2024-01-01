@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setCountry, setMethodAuth } from '../redux/actions';
 import { AUTH_WITH_PHONE, AUTH_WITH_QR_CODE } from '../const/typesAuth';
 import '../../styles/Register__CountryAndTelephone.scss';
+import {getCountryAndCodesForSelect} from "../actions/fetchs";
 
 interface AuthComponentProps {
     isAuthQrCode: boolean;
@@ -14,11 +15,19 @@ interface AuthComponentProps {
     setCountryAction: (country: string) => void;
 }
 
-interface AuthComponentState {
+interface AuthComponentLocalState {
     methodAuth: number;
 }
 
-class AuthComponent extends Component<AuthComponentProps, AuthComponentState> {
+// Сложная вещь потом надо будет все это дело рефакторить, пока напишу на быструю руку
+// чтобы бек можно было тестить
+// По идее у этого компонента 4 состояния
+// 1) Вход по qr коду
+// 2) Вход по номеру
+// 3) Подтверждение смс, и если не зареган ак то вводим имя и фамилию + лого
+// 4) Если зареган, и если стоит облочный пароль то еще и его вводить
+// Вообщем сложный компонент, возможно правильнее даже будет разбить на логически незавизимые компоненты
+class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalState> {
     constructor(props: AuthComponentProps) {
         super(props);
         this.state = {
@@ -27,7 +36,7 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentState> {
     }
 
     componentDidMount() {
-        // getQrCode();
+        getCountryAndCodesForSelect();
     }
 
     handleChangeMethodAuth = () => {
@@ -49,33 +58,31 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentState> {
     };
 
     render() {
-        console.log(this.props);
-        console.log(this.state);
         return (
             <>
-                {this.state.methodAuth === AUTH_WITH_QR_CODE ? (
-                    <>
+                {this.state.methodAuth === AUTH_WITH_QR_CODE
+                    ? (<>
                         <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
                         <div className={'app__title__container'}>
                             <div className={'app__title__container--list'}>
-                <span>
-                  <p className={'QR__description'}>
-                    <strong className={'QR__description--listItem'}>1</strong>
-                    Open Pchelogram on your phone
-                  </p>
-                </span>
-                                <span>
-                  <p className={'QR__description'}>
-                    <strong className={'QR__description--listItem'}>2</strong>
-                    Go to Settings {'>'} Devices {'>'} Link Desktop Device
-                  </p>
-                </span>
-                                <span>
-                  <p className={'QR__description'}>
-                    <strong className={'QR__description--listItem'}>3</strong>
-                    Point your phone at this screen to confirm login
-                  </p>
-                </span>
+                            <span>
+                                <p className={'QR__description'}>
+                                    <strong className={'QR__description--listItem'}>1</strong>
+                                    Open Pchelogram on your phone
+                                </p>
+                            </span>
+                            <span>
+                                <p className={'QR__description'}>
+                                    <strong className={'QR__description--listItem'}>2</strong>
+                                    Go to Settings {'>'} Devices {'>'} Link Desktop Device
+                                </p>
+                            </span>
+                            <span>
+                                <p className={'QR__description'}>
+                                    <strong className={'QR__description--listItem'}>3</strong>
+                                    Point your phone at this screen to confirm login
+                                </p>
+                            </span>
                                 <button id={'changeButton'} className="favorite styled" type="button" onClick={this.handleChangeMethodAuth}>
                                     <p className={'QR__button'}>Log in by phone Number</p>
                                 </button>
