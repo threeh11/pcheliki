@@ -10,7 +10,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
 
-    .addEntry('mainAuth', './assets/auth/js_react/mainAuth.tsx')
+    .addEntry('mainAuth', './assets/auth/ts_react/mainAuth.tsx')
 
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
@@ -28,6 +28,7 @@ Encore
 
     // uncomment if you use TypeScript
     .enableTypeScriptLoader()
+    .enableForkedTypeScriptTypesChecking()
 
     //SPA
     .enableReactPreset()

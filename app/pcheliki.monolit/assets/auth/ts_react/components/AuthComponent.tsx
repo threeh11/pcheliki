@@ -1,46 +1,44 @@
 import React, { Component, ChangeEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { connect } from 'react-redux';
 import { setCountry, setMethodAuth } from '../redux/actions';
 import { AUTH_WITH_PHONE, AUTH_WITH_QR_CODE } from '../const/typesAuth';
 import '../../styles/Register__CountryAndTelephone.scss';
 
-interface RootState {
+interface AuthComponentProps {
     isAuthQrCode: boolean;
     qrCode: string;
     phone: string;
     country: string;
     remember_me: boolean;
-    methodAuth: number;
-}
-
-interface RootDispatch {
-    setMethodAuthAction: (method: string) => void;
+    setMethodAuthAction: (method: number) => void;
     setCountryAction: (country: string) => void;
 }
 
-type Props = ConnectedProps<typeof connector>;
+interface AuthComponentState {
+    methodAuth: number;
+}
 
-class AuthComponent extends Component<Props, RootState> {
-    state: { methodAuth: number } = {
-        methodAuth: AUTH_WITH_QR_CODE,
-    };
+class AuthComponent extends Component<AuthComponentProps, AuthComponentState> {
+    constructor(props: AuthComponentProps) {
+        super(props);
+        this.state = {
+            methodAuth: AUTH_WITH_QR_CODE,
+        };
+    }
 
     componentDidMount() {
-        //Тут надо будет сбегать за qr кодом..
         // getQrCode();
     }
 
     handleChangeMethodAuth = () => {
         if (this.state.methodAuth === AUTH_WITH_QR_CODE) {
             this.setState({
-                country: "", isAuthQrCode: false, phone: "", qrCode: "", remember_me: false,
-                methodAuth: AUTH_WITH_PHONE
+                methodAuth: AUTH_WITH_PHONE,
             });
             this.props.setMethodAuthAction(AUTH_WITH_PHONE);
         } else {
             this.setState({
-                country: "", isAuthQrCode: false, phone: "", qrCode: "", remember_me: false,
-                methodAuth: AUTH_WITH_QR_CODE
+                methodAuth: AUTH_WITH_QR_CODE,
             });
             this.props.setMethodAuthAction(AUTH_WITH_QR_CODE);
         }
@@ -51,11 +49,12 @@ class AuthComponent extends Component<Props, RootState> {
     };
 
     render() {
+        console.log(this.props);
+        console.log(this.state);
         return (
             <>
                 {this.state.methodAuth === AUTH_WITH_QR_CODE ? (
                     <>
-                        {/*Тут будет Qr, пока думаю как его генерить*/}
                         <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
                         <div className={'app__title__container'}>
                             <div className={'app__title__container--list'}>
@@ -88,11 +87,7 @@ class AuthComponent extends Component<Props, RootState> {
                         <div className={'mainContainer'}>
                             <div>
                                 <div className={'logotype'}>
-                                    <img
-                                        src={'https://i.pinimg.com/originals/fe/bf/cc/febfcc493856e67733049fcd5827874d.jpg'}
-                                        alt={'пчелограмий логотип'}
-                                        className={'logotype__img'}
-                                    />
+                                    <img src={'https://i.pinimg.com/originals/fe/bf/cc/febfcc493856e67733049fcd5827874d.jpg'} alt={'пчелограмий логотип'} className={'logotype__img'} />
                                 </div>
                                 <div className={'app__title'}>
                                     <p className={'app__title__text'}>Pchelogram</p>
@@ -131,7 +126,7 @@ class AuthComponent extends Component<Props, RootState> {
     }
 }
 
-const mapStateToProps = (store: RootState) => {
+const mapStateToProps = (store: any) => {
     return {
         isAuthQrCode: store.isAuthQrCode,
         qrCode: store.qrCode,
@@ -141,13 +136,11 @@ const mapStateToProps = (store: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: RootDispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        setMethodAuthAction: (method: string) => dispatch(setMethodAuth(method)),
+        setMethodAuthAction: (method: number) => dispatch(setMethodAuth(method)),
         setCountryAction: (country: string) => dispatch(setCountry(country)),
     };
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(AuthComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthComponent);
