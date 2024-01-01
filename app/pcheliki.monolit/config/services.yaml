@@ -22,3 +22,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Вешаем слушатель на событие kernel.exception
+    # т.е когда ядро симфони вызывает kernel.exception,
+    # наш слушатель перехватывает и отдает запрос как нам нужно
+    App\Core\Event\ExceptionListener:
+        arguments:
+            - '@twig'
+            - '@logger'
+        tags: [ kernel.event_listener ]

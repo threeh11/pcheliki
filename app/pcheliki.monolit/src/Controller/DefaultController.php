@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\modules\Infrastructure\Base\BaseDefaultController;
+use App\Modules\Infrastructure\Base\BaseDefaultController;
 use Symfony\Component\{HttpFoundation\Request, HttpFoundation\Response};
 use Symfony\Component\Routing\Attribute\Route;
 
