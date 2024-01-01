@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use App\modules\Auth\Scenarios\{
+use App\Modules\Auth\Scenarios\{
     Actions\AuthSendMessageAction,
     Others\AuthRequestTransformer
 };
-use App\modules\Infrastructure\Base\BaseAuthController;
+use App\Modules\Infrastructure\Base\BaseAuthController;
 use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
+use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Exception\ValidationFailedException;
 
 class AuthController extends BaseAuthController
 {
@@ -25,11 +27,11 @@ class AuthController extends BaseAuthController
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    #[Route('/a', name: 'index_register', methods: ['GET'])]
-    public function index(): Response
-    {
-        return $this->sendPage('auth/index.html.twig', []);
-    }
+//    #[Route('/a', name: 'index_register', methods: ['GET'])]
+//    public function index(): Response
+//    {
+//        return $this->sendPage('auth/index.html.twig', []);
+//    }
 
     /**
      * @throws TransportExceptionInterface
