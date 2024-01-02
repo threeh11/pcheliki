@@ -14,7 +14,8 @@ declare global {
     }
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducers, composeEnhancers());
+// еще кринж то что стор у нас export, костыль конечно, но пока хз как дергать стор вне компонента поэтому пока так
+export const store = createStore(rootReducers, composeEnhancers());
 
 const rootElement: HTMLElement | null = document.getElementById('root');
 

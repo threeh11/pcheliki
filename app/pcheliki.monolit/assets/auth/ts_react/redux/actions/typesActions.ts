@@ -1,3 +1,7 @@
+export const NOT_LOADED_SELECT_COUNTRIES: string = 'NOT_LOADED_SELECT_COUNTRIES';
+
+export const LOADED_SELECT_COUNTRIES: string = 'LOADED_SELECT_COUNTRIES';
+
 export const SET_METHOD_AUTH: string = 'SET_METHOD_AUTH';
 
 export const SET_COUNTRY: string = 'SET_COUNTRY';

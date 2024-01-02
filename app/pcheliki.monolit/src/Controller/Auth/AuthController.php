@@ -30,8 +30,7 @@ class AuthController extends BaseAuthController
     public function getCountryForSelect(): JsonResponse
     {
         $dataCountries = $this->authReaders->getCountries();
-        $countData = count($dataCountries);
-        return new JsonResponse(['countries_codes' => $dataCountries, 'count' => $countData]);
+        return new JsonResponse(['countries_codes' => $dataCountries]);
     }
 
 }

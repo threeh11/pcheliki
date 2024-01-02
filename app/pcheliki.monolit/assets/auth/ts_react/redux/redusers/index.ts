@@ -3,11 +3,12 @@ import {
     SET_QR_CODE,
     SET_COUNTRY,
     SET_METHOD_AUTH,
-    SET_REMEMBER_ME
+    SET_REMEMBER_ME, NOT_LOADED_SELECT_COUNTRIES, LOADED_SELECT_COUNTRIES
 } from '../actions/typesActions';
 import { AUTH_WITH_QR_CODE } from '../../const/typesAuth';
 
 export interface AuthState {
+    isLoadedCountriesCodes: boolean,
     isAuthQrCode: number;
     qrCode: string | null;
     phone: string | null;
@@ -16,6 +17,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
+    isLoadedCountriesCodes: false,
     isAuthQrCode: AUTH_WITH_QR_CODE,
     qrCode: '',
     phone: '',
@@ -25,6 +27,16 @@ const initialState: AuthState = {
 
 export function authReducer(state: AuthState = initialState, action: any): AuthState {
     switch (action.type) {
+        case NOT_LOADED_SELECT_COUNTRIES:
+            return {
+                ...state,
+                isLoadedCountriesCodes: action.payload,
+            };
+        case LOADED_SELECT_COUNTRIES:
+            return {
+                ...state,
+                isLoadedCountriesCodes: action.payload,
+            }
         case SET_METHOD_AUTH:
             return {
                 ...state,
