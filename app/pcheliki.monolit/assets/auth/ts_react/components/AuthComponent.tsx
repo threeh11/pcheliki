@@ -5,6 +5,7 @@ import { AUTH_WITH_PHONE, AUTH_WITH_QR_CODE } from '../const/typesAuth';
 import '../../styles/Register__CountryAndTelephone.scss';
 import {getCountryAndCodesForSelect} from '../actions/fetchs';
 import {Throbber} from "../../../reusable_components/throbber/Throbber";
+import QRcode from "../../../img/QRcode.svg";
 
 interface AuthComponentProps {
     isLoadedCountriesCodes: boolean;
@@ -66,37 +67,53 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
             <>
                 {this.state.methodAuth === AUTH_WITH_QR_CODE
                     ? (<>
-                        <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
-                        <div className={'app__title__container'}>
-                            <div className={'app__title__container--list'}>
-                            <span>
-                                <p className={'QR__description'}>
-                                    <strong className={'QR__description--listItem'}>1</strong>
-                                    Open Pchelogram on your phone
-                                </p>
-                            </span>
-                            <span>
-                                <p className={'QR__description'}>
-                                    <strong className={'QR__description--listItem'}>2</strong>
-                                    Go to Settings {'>'} Devices {'>'} Link Desktop Device
-                                </p>
-                            </span>
-                            <span>
-                                <p className={'QR__description'}>
-                                    <strong className={'QR__description--listItem'}>3</strong>
-                                    Point your phone at this screen to confirm login
-                                </p>
-                            </span>
-                                <button id={'changeButton'} className="favorite styled" type="button" onClick={this.handleChangeMethodAuth}>
-                                    <p className={'QR__button'}>Log in by phone Number</p>
-                                </button>
+                        <div className={'login_container'}>
+                            <img className={'QRcode'} src={QRcode} alt="QR code"/>
+                            <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
+                            <div className={'app__title__container'}>
+                                <div className={'app__title__container--list'}>
+                                    <span>
+                                        <p className={'QR__description--listItem'}>
+                                            1
+                                        </p>
+                                        <p className={'QR__description'}>
+                                            Open Pchelogram on your phone
+                                        </p>
+                                    </span>
+                                    <span>
+                                        <p className={'QR__description--listItem'}>
+                                            2
+                                        </p>
+                                        <p className={'QR__description'}>
+                                            Go to Settings {'>'} Devices {'>'} Link Desktop Device
+                                        </p>
+                                    </span>
+                                    <span>
+                                        <p className={'QR__description--listItem'}>
+                                            3
+                                        </p>
+                                        <p className={'QR__description'}>
+                                            Point your phone at this screen to confirm login
+                                        </p>
+                                    </span>
+                                </div>
+                                <div className={'buttons'}>
+                                    <button id={'changeButton'} className="favorite styled" type="button"
+                                            onClick={this.handleChangeMethodAuth}>
+                                        Log in by phone Number
+                                    </button>
+                                    <button id={'changeButton1'} className="favorite styled" type="button"
+                                            onClick={this.handleChangeMethodAuth}>
+                                        Продолжить на русском
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </>
-                ) : (
-                    <>
-                        <div className={'mainContainer'}>
-                            <div>
+                        </>
+                    ) : (
+                        <>
+                            <div className={'mainContainer'}>
+                                <div>
                                 <div className={'logotype'}>
                                     <img
                                         src={'https://i.pinimg.com/originals/fe/bf/cc/febfcc493856e67733049fcd5827874d.jpg'}
