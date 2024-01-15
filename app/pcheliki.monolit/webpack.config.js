@@ -11,6 +11,7 @@ Encore
     .setPublicPath('/build')
 
     .addEntry('mainAuth', './assets/auth/ts_react/mainAuth.tsx')
+    .addEntry('app', './assets/style/app.css')
 
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
@@ -24,6 +25,7 @@ Encore
     //     babelConfig.plugins = []
     // })
 
+    .enablePostCssLoader()
     .enableSassLoader()
 
     // uncomment if you use TypeScript

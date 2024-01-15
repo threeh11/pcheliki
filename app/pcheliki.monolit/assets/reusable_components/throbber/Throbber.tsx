@@ -1,8 +1,13 @@
 import React from 'react';
-import './style/throbber.scss'
 
-export const Throbber = () => {
+interface ThrobberSize {
+    size: string
+}
+
+export const Throbber = ({size}: ThrobberSize): JSX.Element => {
     return (
-        <div className={'throbber'}></div>
+        <>
+            <span className={`loading loading-ring loading-${size} text-info`} />
+        </>
     )
 }

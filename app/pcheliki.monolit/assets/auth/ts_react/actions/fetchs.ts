@@ -1,6 +1,6 @@
 import RequestService from '../../../core/services/RequestService';
 import {store} from "../mainAuth";
-import {setIsLoadedCountriesCodes, setNotLoadedCountriesCodes} from "../redux/actions";
+import {setIsLoadedCountriesCodes, setLoadedQrCode, setNotLoadedCountriesCodes} from "../redux/actions";
 
 export interface DataForCountrySelect {
     pathToCountryPic: string,
@@ -15,4 +15,9 @@ export const getCountryAndCodesForSelect = async (): Promise<DataForCountrySelec
     const { countries_codes } = await requestService.get('auth/get-countries');
     store.dispatch(setIsLoadedCountriesCodes());
     return countries_codes;
+}
+
+export const getQrCodeForAuth = () => {
+    // Тут будет запрос к апихе, за qr кодом
+    store.dispatch(setLoadedQrCode(true));
 }

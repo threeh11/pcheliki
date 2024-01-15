@@ -1,19 +1,22 @@
 import React, { Component, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
-import { setCountry, setMethodAuth } from '../redux/actions';
+import {setCountry, setLoadedQrCode, setMethodAuth} from '../redux/actions';
 import { AUTH_WITH_PHONE, AUTH_WITH_QR_CODE } from '../const/typesAuth';
 import '../../styles/Register__CountryAndTelephone.scss';
-import {getCountryAndCodesForSelect} from '../actions/fetchs';
+import {getCountryAndCodesForSelect, getQrCodeForAuth} from '../actions/fetchs';
 import {Throbber} from "../../../reusable_components/throbber/Throbber";
 import QRcode from "../../../img/QRcode.svg";
+import "../../../style/app.css"
 
 interface AuthComponentProps {
+    isLoadedQrCode: boolean;
     isLoadedCountriesCodes: boolean;
     isAuthQrCode: boolean;
     qrCode: string;
     phone: string;
     country: string;
     remember_me: boolean;
+    setLoadedQrCodeAction: (isLoaded: boolean) => void;
     setMethodAuthAction: (method: number) => void;
     setCountryAction: (country: string) => void;
 }
@@ -40,9 +43,11 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
 
     componentDidMount() {
         const countriesCodes = getCountryAndCodesForSelect();
+        // Тут достаем qr-code
     }
 
     handleChangeMethodAuth = () => {
+        getQrCodeForAuth();
         if (this.state.methodAuth === AUTH_WITH_QR_CODE) {
             this.setState({
                 // тоже кринж меняю локальный стейт, а приходится задавать все стейты, тоже нужно будет разобраться
@@ -61,14 +66,20 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
         this.props.setCountryAction(e.target.value);
     };
 
-    render() {
+    render(): JSX.Element {
         console.log(this.props);
         return (
             <>
                 {this.state.methodAuth === AUTH_WITH_QR_CODE
                     ? (<>
                         <div className={'login_container'}>
-                            <img className={'QRcode'} src={QRcode} alt="QR code"/>
+                            {this.props.isLoadedQrCode ? (
+                                <>
+                                    <img className={'QRcode'} src={QRcode} alt="QR code"/>
+                                </>
+                            ) : (
+                                <Throbber size={'lg'}></Throbber>
+                            )}
                             <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
                             <div className={'app__title__container'}>
                                 <div className={'app__title__container--list'}>
@@ -136,7 +147,7 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
                                             </select>
                                         </>
                                         ) : (
-                                            <Throbber></Throbber>
+                                            <Throbber size={'lg'}></Throbber>
                                     )}
 
                                     <input className={'form__telephone'} id={'telephone'}
@@ -169,6 +180,7 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
 
 const mapStateToProps = (store: any) => {
     return {
+        isLoadedQrCode: store.isLoadedQrCode,
         isLoadedCountriesCodes: store.isLoadedCountriesCodes,
         isAuthQrCode: store.isAuthQrCode,
         qrCode: store.qrCode,
@@ -180,6 +192,7 @@ const mapStateToProps = (store: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
+        setLoadedQrCode: (isLoaded: boolean) => dispatch(setLoadedQrCode(isLoaded)),
         setMethodAuthAction: (method: number) => dispatch(setMethodAuth(method)),
         setCountryAction: (country: string) => dispatch(setCountry(country)),
     };
