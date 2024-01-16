@@ -2,11 +2,10 @@ import React, { Component, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import {setCountry, setLoadedQrCode, setMethodAuth} from '../redux/actions';
 import { AUTH_WITH_PHONE, AUTH_WITH_QR_CODE } from '../const/typesAuth';
-import '../../styles/Register__CountryAndTelephone.scss';
 import {getCountryAndCodesForSelect, getQrCodeForAuth} from '../actions/fetchs';
-import {Throbber} from "../../../reusable_components/throbber/Throbber";
+import {Throbber} from "../../../shared/ui/Throbber";
 import QRcode from "../../../img/QRcode.svg";
-import "../../../style/app.css"
+import "../../../styles/app.scss";
 
 interface AuthComponentProps {
     isLoadedQrCode: boolean;
@@ -71,107 +70,63 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
         return (
             <>
                 {this.state.methodAuth === AUTH_WITH_QR_CODE
-                    ? (<>
-                        <div className={'login_container'}>
-                            {this.props.isLoadedQrCode ? (
-                                <>
-                                    <img className={'QRcode'} src={QRcode} alt="QR code"/>
-                                </>
-                            ) : (
-                                <Throbber size={'lg'}></Throbber>
-                            )}
-                            <h1 className={'app__title__text'}>Log in to Telegram by QR Code</h1>
-                            <div className={'app__title__container'}>
-                                <div className={'app__title__container--list'}>
+                        ? (<>
+                            <div className={'login-container'}>
+                                {this.props.isLoadedQrCode ? (
+                                    <img className={'login-container__image'} src={QRcode} alt="QR code"/>
+                                ) : (
+                                    <img className={'login-container__image'} src={QRcode} alt="QR code"/>
+                                )}
+                                <h1 className={'login-container__title'}>
+                                    Log in to Telegram by QR Code
+                                </h1>
+                                <div className={'login-guide'}>
                                     <span>
-                                        <p className={'QR__description--listItem'}>
-                                            1
-                                        </p>
-                                        <p className={'QR__description'}>
+                                        <div className={'index-box'}>
+                                            <p className={'login-guide__index'}>
+                                                1
+                                            </p>
+                                        </div>
+                                        <p className={'login-guide__description'}>
                                             Open Pchelogram on your phone
                                         </p>
                                     </span>
                                     <span>
-                                        <p className={'QR__description--listItem'}>
-                                            2
-                                        </p>
-                                        <p className={'QR__description'}>
+                                        <div className={'index-box'}>
+                                            <p className={'login-guide__index'}>
+                                                2
+                                            </p>
+                                        </div>
+                                        <p className={'login-guide__description'}>
                                             Go to Settings {'>'} Devices {'>'} Link Desktop Device
                                         </p>
                                     </span>
                                     <span>
-                                        <p className={'QR__description--listItem'}>
-                                            3
-                                        </p>
-                                        <p className={'QR__description'}>
+                                        <div className={'index-box'}>
+                                            <p className={'login-guide__index'}>
+                                                3
+                                            </p>
+                                        </div>
+                                        <p className={'login-guide__description'}>
                                             Point your phone at this screen to confirm login
                                         </p>
                                     </span>
                                 </div>
                                 <div className={'buttons'}>
-                                    <button id={'changeButton'} className="favorite styled" type="button"
+                                    <button className="buttons__switch-method" type="button"
                                             onClick={this.handleChangeMethodAuth}>
-                                        Log in by phone Number
+                                    Log in by phone Number
                                     </button>
-                                    <button id={'changeButton1'} className="favorite styled" type="button"
-                                            onClick={this.handleChangeMethodAuth}>
-                                        Продолжить на русском
-                                    </button>
+                                    {/* добавить смену языка */}
+                                    {/*<button id={'changeButton1'} className="favorite styled" type="button"*/}
+                                    {/*        onClick={this.handleChangeMethodAuth}>*/}
+                                    {/*    Продолжить на русском*/}
+                                    {/*</button>*/}
                                 </div>
                             </div>
-                        </div>
                         </>
                     ) : (
-                        <>
-                            <div className={'mainContainer'}>
-                                <div>
-                                <div className={'logotype'}>
-                                    <img
-                                        src={'https://i.pinimg.com/originals/fe/bf/cc/febfcc493856e67733049fcd5827874d.jpg'}
-                                        alt={'пчелограмий логотип'} className={'logotype__img'}/>
-                                </div>
-                                <div className={'app__title'}>
-                                    <p className={'app__title__text'}>Pchelogram</p>
-                                </div>
-                                <div className={'telephone__description'}>
-                                    <p className={'telephone__description'}>Проверьте код страны и введите
-                                        свой номер телефона</p>
-                                </div>
-                                <form method={'POST'} name={'form__CountryAndTelephone'}
-                                      className={'form__onTelephone'} action={'reg/check_number'}>
-                                    {this.props.isLoadedCountriesCodes
-                                        ? (<>
-                                            <select className={'form__country'} id={'country'}
-                                                    onChange={this.handleChangeSelectCountry}>
-                                                <option></option>
-                                            </select>
-                                        </>
-                                        ) : (
-                                            <Throbber size={'lg'}></Throbber>
-                                    )}
 
-                                    <input className={'form__telephone'} id={'telephone'}
-                                           type={'phone'}></input>
-                                    <div className={'form__remember'}>
-                                        <div>
-                                            <input type={'checkbox'} id={'remember_me'} name={'remember_me'}
-                                                   className={'form__remember__checkbox'}/>
-                                        </div>
-                                        <div>
-                                            <p className={'telephone__description'}>remember me</p>
-                                        </div>
-                                    </div>
-                                    <button type={'submit'} className={'form__CountryAndTelephone__button'}>
-                                        Войти
-                                    </button>
-                                </form>
-                                <button id={'changeButton'} className="favorite styled" type="button"
-                                        onClick={this.handleChangeMethodAuth}>
-                                    Вход по QR коду
-                                </button>
-                            </div>
-                        </div>
-                    </>
                     )}
             </>
         );

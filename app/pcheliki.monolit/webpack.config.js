@@ -11,7 +11,6 @@ Encore
     .setPublicPath('/build')
 
     .addEntry('mainAuth', './assets/auth/ts_react/mainAuth.tsx')
-    .addEntry('app', './assets/style/app.css')
 
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
