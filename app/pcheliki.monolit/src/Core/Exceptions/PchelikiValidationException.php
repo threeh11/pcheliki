@@ -24,7 +24,7 @@ class PchelikiValidationException extends \Exception
      */
     public function __construct(
         string $message = "Ошибка валидации",
-        int $code = 0,
+        int $code = 422,
         ?Throwable $previous = null,
         array $validationsErrors = [],
     ) {
