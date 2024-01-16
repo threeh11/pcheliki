@@ -30,5 +30,6 @@
     "**/*.ts",
     "**/*.tsx"
   ],
+  "baseUrl": "./assets",
   "exclude": ["node_modules", "build"] // *** The files to not type check ***
-}
+  }

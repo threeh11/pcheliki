@@ -133,15 +133,15 @@ class AuthComponent extends Component<AuthComponentProps, AuthComponentLocalStat
     }
 }
 
-const mapStateToProps = (store: any) => {
+const mapStateToProps = (state: any) => {
     return {
-        isLoadedQrCode: store.isLoadedQrCode,
-        isLoadedCountriesCodes: store.isLoadedCountriesCodes,
-        isAuthQrCode: store.isAuthQrCode,
-        qrCode: store.qrCode,
-        phone: store.phone,
-        country: store.country,
-        remember_me: store.remember_me,
+        isLoadedQrCode: state.authState.isLoadedQrCode,
+        isLoadedCountriesCodes: state.authState.isLoadedCountriesCodes,
+        isAuthQrCode: state.authState.isAuthQrCode,
+        qrCode: state.authState.qrCode,
+        phone: state.authState.phone,
+        country: state.authState.country,
+        remember_me: state.authState.remember_me,
     };
 };
 
