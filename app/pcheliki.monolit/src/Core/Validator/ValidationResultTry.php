@@ -7,9 +7,18 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 class ValidationResultTry implements IValidationResultTry
 {
     private bool $isHasError;
+
+    /** @var array<string> $errors */
     private array $errors;
+
+    /** @var array<string> $data */
     private array $data;
 
+    /**
+     * @param bool $isHasError
+     * @param array<string> $errors
+     * @param array<string> $data
+     */
     public function __construct(
         bool $isHasError,
         array $errors,
@@ -37,6 +46,7 @@ class ValidationResultTry implements IValidationResultTry
 
     //Пока прототип чтобы поработать с валидацией в Symfony,
     //Все равно потом ошибки будем по другому отдавать
+    /** @return array<string> $this->data */
     public function getValidDataOrThrowEx(): array
     {
         if ($this->isHasError && $this->errors) {

@@ -29,3 +29,6 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 package-lock.json
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

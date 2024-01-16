@@ -12,6 +12,10 @@ final readonly class AuthValidatorBuilder
         private ValidatorService $validatorService,
     ) {}
 
+    /**
+     * @param array<string> $notValidData
+     * @return ValidationResultTry
+     */
     public function validateCheckNumber(array $notValidData): ValidationResultTry
     {
         $constraint = new Assert\Collection([
