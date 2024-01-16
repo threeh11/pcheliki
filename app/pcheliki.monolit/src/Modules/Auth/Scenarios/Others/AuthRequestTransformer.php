@@ -21,7 +21,7 @@ final readonly class AuthRequestTransformer
 
         return new DtoRequestAuthCheckNumber(
             $validData['phone'],
-            $validData['remember_me'],
+            (bool) $validData['remember_me'],
         );
     }
 

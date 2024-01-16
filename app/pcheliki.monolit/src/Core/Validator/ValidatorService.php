@@ -12,6 +12,11 @@ final readonly class ValidatorService implements IValidatorService
     ) {}
 
     // Пока прототип все рано улетит, так как там свои ошибки))
+    /**
+     * @param array<string> $data
+     * @param Constraint|array<string> $constraint
+     * @return ValidationResultTry
+     */
     public function validateData(array $data, Constraint|array $constraint): ValidationResultTry
     {
         if (!$data || !$constraint) {

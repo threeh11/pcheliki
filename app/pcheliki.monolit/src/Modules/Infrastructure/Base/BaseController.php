@@ -16,6 +16,7 @@ abstract class BaseController extends AbstractController
     // Пока не расписал сам Request, тут будем передавать весь request
 
     /**
+     * @param array<string> $parameters
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
